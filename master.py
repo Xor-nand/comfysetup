@@ -6,6 +6,7 @@ import urllib.request
 import filecmp
 
 UPDATE_LIST = "/tmp/comfysetup_new_list.txt"
+URL_LIST = "https://raw.githubusercontent.com/tommasoascari/comfysetup/master/list.txt"
 
 def compare():
 	compared = filecmp.cmp('list.txt', UPDATE_LIST)
@@ -23,15 +24,14 @@ def updateList():
 
 def update():
 	print (" > Looking for updates ...")
-	URL = "https://raw.githubusercontent.com/tommasoascari/comfysetup/master/list.txt"
-	filename, headers = urllib.request.urlretrieve(url, filename=UPDATE_LIST)
+	filename, headers = urllib.request.urlretrieve(URL_LIST, filename=UPDATE_LIST)
 	check = compare()
 	if check == True:
 		print (' > program mirrorlist is up to date')
-	else if check == False:
-		print (" > Found updates for the program mirrorlist)
+	elif check == False:
+		print (" > Found updates for the program mirrorlist")
 		YN = input(" > Do you want to upgrade the list ? (Y/N) - ")
-		if YN == "y"
+		if YN == "y":
 			updateList()
 		else :
 			print ("list not updated")
@@ -39,7 +39,7 @@ def update():
 
 network = netcheck()
 
-if network == true :
+if network == True :
 	update()
 else :
 	print ("no internet bro")
