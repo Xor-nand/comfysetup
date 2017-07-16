@@ -1,0 +1,6 @@
+#
+# This is the list of programs used by the comfysetup program
+#
+
+[test]
+testpath.com
