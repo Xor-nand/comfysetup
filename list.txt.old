@@ -1,0 +1,8 @@
+#
+# This is the list of programs used by the comfysetup program
+# Please do not modify the content of this list
+# If you want to insert new programs to the manager add those in the "custom.txt" file
+#
+
+[test]
+testpath.com

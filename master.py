@@ -4,12 +4,13 @@
 
 import urllib.request
 import filecmp
+import shutil
 
-UPDATE_LIST = "/tmp/comfysetup_new_list.txt"
+UPDATED_LIST = "/tmp/comfysetup_new_list.txt"
 URL_LIST = "https://raw.githubusercontent.com/tommasoascari/comfysetup/master/list.txt"
 
 def compare():
-	compared = filecmp.cmp('list.txt', UPDATE_LIST)
+	compared = filecmp.cmp('list.txt', UPDATED_LIST)
 	return compared
 
 def netcheck():
@@ -20,11 +21,14 @@ def netcheck():
         return False
 
 def updateList():
-	print ("ima working on this")
+	print (" > Replacing deprecated list ...")
+	shutil.move("list.txt", "list.txt.old")
+	shutil.move(UPDATED_LIST, "list.txt")
+	print (" > Done, list updated successfully ")
 
 def update():
 	print (" > Looking for updates ...")
-	filename, headers = urllib.request.urlretrieve(URL_LIST, filename=UPDATE_LIST)
+	filename, headers = urllib.request.urlretrieve(URL_LIST, filename=UPDATED_LIST)
 	check = compare()
 	if check == True:
 		print (' > program mirrorlist is up to date')
