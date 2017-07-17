@@ -100,3 +100,8 @@ ENV/
 
 # PyCharm data
 .idea/
+
+
+# comfy ignores
+cosmo/
+list
