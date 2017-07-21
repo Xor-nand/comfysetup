@@ -30,10 +30,16 @@ hdlr.setFormatter(logging.Formatter('%(message)s'))
 logger.addHandler(hdlr)
 
 
+if 'COMFY' in os.environ:
+    COMFY_ROOT = os.environ['COMFY']
+else:
+    COMFY_ROOT = os.getcwd()
+
+
 def check_updates():
     logger.info('Checking for updates...')
-    os.chdir(os.environ['COMFY'])
-    res = subprocess.check_output('./check_updates.sh')
+    os.chdir(COMFY_ROOT)
+    res = subprocess.check_output('./comfy/check_updates.sh')
     if type(res) == bytes:  res = res.decode().strip()
     logger.debug(res)
     if res == 'need to pull':
