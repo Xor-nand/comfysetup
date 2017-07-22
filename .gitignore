@@ -101,6 +101,9 @@ ENV/
 # PyCharm data
 .idea/
 
+# PLY output
+comfy/parser.out
+comfy/parsetab.py
 
 # comfy ignores
 cosmos/
