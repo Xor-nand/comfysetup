@@ -25,7 +25,7 @@ class ParsingException(Exception):
 parsed = { }
 
 
-tokens = ('PKGNAME', 'ASSIGN', 'URL')
+tokens = ('PKGNAME', 'ASSIGN', 'URL', 'COMMIT')
 t_ignore_COMMENT = r'\#.*'
 t_ignore = ' \t'
 
@@ -33,8 +33,12 @@ t_ignore = ' \t'
 t_ASSIGN = '='
 t_PKGNAME = r'[a-zA-Z_][a-zA-Z_0-9]*'
 t_URL = r'https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)'
-#t_URL = r'(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?'
-#t_URL = r'https?:\/\/.+'
+
+
+def t_COMMIT(t):
+    r'@[0-9a-f]+'
+    t.value = t.value[1:]  # remove the '@' character
+    return t
 
 
 def t_newline(t):
@@ -52,8 +56,8 @@ lexer = ply.lex.lex()
 
 
 def p_package(t):
-    'package : PKGNAME ASSIGN URL'
-    parsed[t[1]] = t[3]
+    'package : PKGNAME ASSIGN URL COMMIT'
+    parsed[t[1]] = (t[3], t[4])
 
 
 def p_error(t):
